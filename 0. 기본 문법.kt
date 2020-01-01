@@ -1,0 +1,232 @@
+fun start(): String = "OK"
+
+/*  기본 문법 https://kotlinlang.org/docs/reference/basic-syntax.html#defining-functions
+* 패키지 정의와 임포트
+* 패키지 명시는 소스의 최상단에 하면 된다
+* package my.demo
+* import kotlin.text.*
+* 추가 [패키지][https://kotlinlang.org/docs/reference/packages.html]
+*
+*   엔트리 포인트
+* 어플리케이션의 엔트리 포인트는 main 함수를 사용한다
+* fun main() {
+*   println("Hello")
+* }
+*
+*   함수
+* 파라미터 타입과 리턴 타입을 명시할 수 있다
+* fun sum(a: Int, b: Int): Int { return a + b }
+* 파라미터 타입은 작성하고 리턴 타입은 추론하게 할 수 있다.
+* fun sum(a: Int, b: Int) = a + b
+* 유의미한 리턴값이 없다면 Unit 를 리턴타입으로 사용하며 생략가능하다
+* fun printSum(a: Int, b: Int): Unit {
+*   println("sum of $a and $b is ${a + b}")
+* }
+* or (Uint 타입 생략)
+* fun printSum(a: Int, b: Int) {
+*   println("sum of $a and $b is ${a + b}")
+* }
+* 추가 [함수][https://kotlinlang.org/docs/reference/functions.html]
+*
+*   변수
+* read-only 지역 변수는 val 키워드로 정의 가능하다, 1회만 초기화가 가능하다
+* val a: Int = 1 // 즉시 할당
+* val b = 2 // Int 타입이 추론된다
+* val c: Int // 초기화를 하지 않는 경우, 타입이 요구된다
+* c = 3      // 늦은 초기화가 이루어졌다
+* 변수는 var 키워드로 할당가능하다
+* var x = 5 // Int 타입이 추론된다
+* x += 1
+* 다른 언어의 전역 변수는 top level 변수로 표현된다
+* val PI = 3.14
+* var x = 0
+*
+* fun incrementX() {
+*   x += 1
+* }
+* 추가 [속성과 필드][https://kotlinlang.org/docs/reference/properties.html]
+*
+*   주석
+* 단일 라인, 멀티 라인 주석이 가능하다
+* 멀티 라인 주석은 '블록 주석'으로 표현되며 중첩 가능하다
+* // 단일 라인 주석
+* /* 멀티 라인 주석 */
+* 추가 [문서화][https://kotlinlang.org/docs/reference/kotlin-doc.html]
+*/
+
+/*  문자열 템플릿
+* var a = 1
+* val s1 = "a is $a"
+*
+* a = 2
+* // 템플릿에서는 임의표현을 사용가능하다
+* val s2 = "{s1.replace("is", "was")}, but now is $a"
+* 추가 [문자열 템플릿][https://kotlinlang.org/docs/reference/basic-types.html#string-templates]
+*
+*   조건 표현
+* fun maxOf(a: Int, b: Int): Int {
+*   if (a > b) {
+*       return a
+*   } else {
+*       return b
+*   }
+* }
+* 다음과 같이 쓸 수도 있다
+* fun maxOf(a: Int, b: Int) = if (a > b) a else b
+* 추가 [조건 표현] -[https://kotlinlang.org/docs/reference/control-flow.html#if-expression]
+*
+*   nullable 변수와 null 체크
+* null 값이 가능할 경우에는 null 체크가 필요하다
+* str 에 int 가 포함되어 있지 않으면 null 을 반환하는 함수
+* fun parseInt(str: String): Int? { ... }
+* nullable 변수를 반환하는 함수를 사용하는 방법법*
+* fun printProduct(arg1: String, arg2: String) {
+*   val x = parseInt(arg1)
+*   val y = parseInt(arg2)
+*
+*   // nullable 변수로 연산을 하면 (e.g. 'x * y') 안된다
+*   if (x != null && y != null) {
+*       // x, y 는 null 체크 이후 자동으로 non-nullable 변수가 된다
+*       println(x * y)
+*   }
+*   else {
+*       println("'$arg1' or '$arg2' is not a number")
+*   }
+* }
+* 따로 검사하면 검사 순서대로 non-nullable 변수가 된다
+* // ...
+* if (x == null) {
+*   println("Wrong number format in arg1: '$arg1'")
+*   return
+* }
+* if (y == null) {
+*   println("Wrong number format in arg2: '$arg2'")
+*   return
+* }
+* println(x * y)
+* 추가 [null 안전][https://kotlinlang.org/docs/reference/null-safety.html]
+*
+*   타입 체크와 자동 캐스트
+* is 연산자는 expression 이 instance 의 타입과 동일한지 검사한다.
+* fun getStringLength(obj: Any): Int? {
+*   if (obj is String) {
+*       // obj 는 자동적으로 String 이 된다
+*       return obj.length
+*   }
+*   // 타입 체크 브랜치 밖에서는 any 타입이 유지된다
+*   return null
+* }
+*
+* fun getStringLength(obj: Any): Int? {
+*   if (obj !is String)
+*       // obj 는 any 의 타입이다
+*       return null
+*   // 브랜치 밖에서 obj 는 String 타입이다
+*   return obj.length
+* }
+*
+* fun getStringLength(obj: Any): Int? {
+*   // && 오른쪽부터 obj 는 String 타입이 된다
+*   if (obj is String && obj.length > 0) {
+*       return obj.length
+*   }
+*   return null
+* }
+* 추가 [클래스][https://kotlinlang.org/docs/reference/classes.html]
+* 추가 [타입 캐스트][https://kotlinlang.org/docs/reference/typecasts.html]
+*
+* for 루프
+* for each 문을 사용할 수 있다
+* val items = listOf("apple", "banana", "kiwifruit")
+* for (item in items) {
+*     println(item)
+* }
+* 인덱스를 통해 접근할 수도 있다
+* val items = listOf("apple", "banana", "kiwifruit")
+* for (index in items.indices) {
+*     println("item at $index is ${items[index]}")
+* }
+* 다른 언어처럼 인덱스를 사요할 수도 있다 (아래 '범위' 참조)
+* for (i in 1...3) {
+*   ...
+* }
+* 추가 [for 루프][https://kotlinlang.org/docs/reference/control-flow.html#for-loops]
+*
+*   while 루프
+* val items = listOf("apple", "banana", "kiwifruit")
+* var index = 0
+* while (index < items.size) {
+*     println("item at $index is ${items[index]}")
+*     index++
+* }
+*
+*   when expression
+* 다른 언어의 switch case 와 비슷하다
+* fun describe(obj: Any): String =
+*     when (obj) {
+*         1          -> "One"
+*         "Hello"    -> "Greeting"
+*         is Long    -> "Long"
+*         !is String -> "Not a string"
+*         else       -> "Unknown"
+*     }
+* 추가[when expression][https://kotlinlang.org/docs/reference/control-flow.html#when-expression]
+*
+*   범위(range)
+* if( in )은 숫자가 range 안에 있는지 확인하는 연산자이다
+* val x = 10
+* val y = 9
+* if (x in 1..y+1) {
+*     println("fits in range")
+* }
+* if ( !in )은 숫자가 range 밖에 있는지 확인하는 연산자이다
+* val list = listOf("a", "b", "c")
+*
+* if (-1 !in 0..list.lastIndex) {
+*     println("-1 is out of range")
+* }
+* if (list.size !in list.indices) {
+*     println("list size is out of valid list indices range, too")
+* }
+* 범위를 순회할 수도 있다
+* for (x in 1..5) {
+*     print(x)
+* }
+* step 은 stride를 지정해 준다
+* for (x in 1..10 step 2) {
+*     print(x)
+* }
+* downTo 는 줄어드는 방향으로 순회할 수 있게 해준다
+* for (x in 9 downTo 0 step 3) {
+*     print(x)
+* }
+* 추가 [범위][https://kotlinlang.org/docs/reference/ranges.html]
+*
+*   컬렉션
+* 컬렉션을 순회하는 방법
+* for (item in items) {
+*     println(item)
+* }
+* 컬렉션 내부에 데이터가 있는지 검사하는 방법
+  val items = setOf("apple", "banana", "kiwifruit")
+* when {
+*     "orange" in items -> println("juicy")
+*     "apple" in items -> print
+*     ln("apple is fine too")
+* }
+* 람다식을 사용하여 필터링과 매핑이 가능하다
+* val fruits = listOf("banana", "avocado", "apple", "kiwifruit")
+* fruits
+*   .filter { it.startsWith("a") }
+*   .sortedBy { it }
+*   .map { it.toUpperCase() }
+*   .forEach { println(it) }
+* 추가 [컬렉션][https://kotlinlang.org/docs/reference/collections-overview.html]
+*
+* 클래스와 클래스의 인스턴스를 생성하는 방법
+* val rectangle = Rectangle(5.0, 2.0)
+* val triangle = Triangle(3.0, 4.0, 5.0)
+* 추가 [클래스][https://kotlinlang.org/docs/reference/classes.html]
+* 추가 [객체와 인스턴스][https://kotlinlang.org/docs/reference/object-declarations.html]
+*
+*/
