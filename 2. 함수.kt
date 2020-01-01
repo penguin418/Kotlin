@@ -16,26 +16,26 @@ fun joinOptions(options: Collection<String>) =
 *
 *   매개변수(parameter)
 * 함수 파라미터는 pascal 표기를 따르며 타입을 명시해야한다 , 로 구별된다
-* fun powerOf(number: Int, exponent: Int) { /*...*/ }
+* fun powerOf(number: Int, exponent: Int) { ... }
 *
 *   기본 인자(Default Argument)
 * 함수 호출 시 인자를 기입하지 않는 경우, 매개변수는 기본 값을 가질 수 있다
 * = 연산자를 사용하여 기본 인자를 표현한다
-* fun read(b: Array<Byte>, off: Int = 0, len: Int = b.size) { /*...*/ }
+* fun read(b: Array<Byte>, off: Int = 0, len: Int = b.size) { ... }
 * 오버로딩을 사용하면 매개변수는 동일한 기본 값을 가져야 하며 이를 지키기 위해 오버로딩 함수에선
 * 기본 인자를 명시하지 않는다
 * open class A {
-*     open fun foo(i: Int = 10) { /*...*/ }
+*     open fun foo(i: Int = 10) { ... }
 * }
 * class B : A() {
-*     override fun foo(i: Int) { /*...*/ }  // 오버로딩 함수는 기본 인자를 명시하면 안된다
+*     override fun foo(i: Int) { ... }  // 오버로딩 함수는 기본 인자를 명시하면 안된다
 * }
 * 값을 넘겨주지 않으면 기본 값이 사용된다
-* fun foo(bar: Int = 0, baz: Int) { /*...*/ }
+* fun foo(bar: Int = 0, baz: Int) { ... }
 * 네임드 인자(named argument, 파이썬의 키워드 인자와 유사)를 사용하면 선행 인자를 비운 상태로 호출 할 수 있다
 * foo(baz = 1) // bar 에는 기본 값인 0이 사용된다
 * 기본 인자 이후 마지막 인자가 lambda 인 경우, 네임드 인자 혹은 괄호 밖에 넣어줄 수 있다
-* fun foo(bar: Int = 0, baz: Int = 1, qux: () -> Unit) { /*...*/ }
+* fun foo(bar: Int = 0, baz: Int = 1, qux: () -> Unit) { ... }
 *
 * foo(qux = { println("hello") }) // bar, baz 에 모두 기본 값이 사용되었고, qux 를 명시하여 네임드 인자를 사용했다
 * foo(1) { println("hello") }     // baz 에만 기본값이 사용되었고, bar 는 인자를 표기, lambda 는 괄호 밖에 표기하였다
@@ -48,13 +48,13 @@ fun joinOptions(options: Collection<String>) =
 *              normalizeCase: Boolean = true,
 *              upperCaseFirstLetter: Boolean = true,
 *              divideByCamelHumps: Boolean = false,
-*              wordSeparator: Char = ' ') {/*...*/}
+*              wordSeparator: Char = ' ') {...}
 * 위의 함수를 아래처럼 표현하면 너무 기므로
 * reformat(str, true, true, false, '_')
 * named 하여 사용하면 필요한 인자만 명시하여 표현해도 된다
 * reformat(str, wordSeparator = '_')
 * 가변인자는 spread 연산자를 사용하여 표시할 수 있다
-* fun foo(vararg strings: String) { /*...*/ }
+* fun foo(vararg strings: String) { ... }
 *
 * foo(strings = *arrayOf("a", "b", "c"))
 * 네임드 인자는 jvm 내에서 자바 함수를 호출할 때 사용할 수 없다
@@ -126,7 +126,7 @@ fun joinOptions(options: Collection<String>) =
 * 클래스 내부에 정의할 때는 dispatcher 를 생략하여도 된다
 * 호출할 때는 this 를 사용하여 disptacher 가 현재 객체임을 명시할 수 있다
 * class MyStringCollection {
-*     infix fun add(s: String) { /*...*/ }
+*     infix fun add(s: String) { ... }
 *
 *     fun build() {
 *         this add "abc"   // Correct
@@ -168,7 +168,7 @@ fun joinOptions(options: Collection<String>) =
 * 참고 [클래스][https://kotlinlang.org/docs/reference/classes.html]
 * 참고 [상속][https://kotlinlang.org/docs/reference/classes.html#inheritance]
 * 제네릭 함수 - 제네릭 매개변수는 <> 를 이용해 사용한다
-* fun <T> singletonList(item: T): List<T> { /*...*/ }
+* fun <T> singletonList(item: T): List<T> { ... }
 * 참고 [제네릭][https://kotlinlang.org/docs/reference/generics.html]
 * 참고 [인라인 함수][https://kotlinlang.org/docs/reference/inline-functions.html]
 * 참고 [extension 함수][https://kotlinlang.org/docs/reference/extensions.html]
